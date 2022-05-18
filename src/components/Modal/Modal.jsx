@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import Lightbox from 'react-image-lightbox';
 import ClipLoader from 'react-spinners/ClipLoader';
-import s from 'components/Modal/Modal.module.css';
 import 'react-image-lightbox/style.css';
 export default function Modal({
   image,
