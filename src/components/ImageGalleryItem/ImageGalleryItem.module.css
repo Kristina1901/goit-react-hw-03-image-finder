@@ -1,0 +1,23 @@
+.info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to right, #ffd89b, #19547b);
+}
+.infoItem {
+   margin-right: 15px;
+}
+p{
+    text-align: center;
+}
+.static {
+    display: block;
+}
+.img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 320/213;
+    display: block;
+
+}

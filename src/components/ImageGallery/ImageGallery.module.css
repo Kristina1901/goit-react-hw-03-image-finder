@@ -1,0 +1,12 @@
+.item {
+    list-style-type: none;
+    width: calc(100% / 4 - 5px);
+    margin-right: 5px;
+    margin-bottom: 5px;
+    border: 2px outset #7b68ee;
+}
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 5px;
+}
