@@ -115,7 +115,7 @@ export default class App extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (prevState.imageName !== this.state.imageName) {
       this.setState({ image: [], status: 'pending', value: false, page: 1 });
-      this.fetchData(this.state.imageName, this.state.page);
+      this.fetchData(this.state.imageName, 1);
     }
     if (prevState.page !== this.state.page) {
       this.setState({ value: false });

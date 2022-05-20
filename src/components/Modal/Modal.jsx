@@ -29,7 +29,11 @@ export default function Modal({
 }
 Modal.propTypes = {
   onClose: PropTypes.func.isRequired,
-  image: PropTypes.array,
+  image: PropTypes.arrayOf(
+    PropTypes.shape({
+      largeImageURL: PropTypes.string.isRequired,
+    })
+  ),
   photoIndex: PropTypes.number.isRequired,
   nextImage: PropTypes.func.isRequired,
   prevImage: PropTypes.func.isRequired,
