@@ -20,6 +20,7 @@ export default class Searchbar extends Component {
     this.props.onSubmit(this.state.imageName);
     // this.setState({ imageName: '' });
   };
+
   render() {
     return (
       <div className={s.container}>

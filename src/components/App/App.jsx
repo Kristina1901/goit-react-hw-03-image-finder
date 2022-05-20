@@ -56,7 +56,7 @@ export default class App extends Component {
           value: true,
         });
 
-        if (data.total === 0) {
+        if (total === 0) {
           this.setState({ value: false });
           toast.warning(
             `Sorry, there are no images matching your search query. Please try again.`
@@ -129,22 +129,12 @@ export default class App extends Component {
       this.state;
     const { onGalleryListClick, switchModal, showNextImage, showPrevImage } =
       this;
-    if (status === 'idle') {
-      return (
-        <div>
-          <Container>
-            <Searchbar onSubmit={this.handleSearchFormSubmit} />
-          </Container>
-        </div>
-      );
-    }
     if (status === 'pending') {
       return <Loader />;
     }
     if (status === 'rejected') {
       return error.message;
-    }
-    if (status === 'resolved') {
+    } else {
       return (
         <div>
           <Container>
