@@ -8,6 +8,8 @@ import { toast } from 'react-toastify';
 import Container from 'components/Container/Container';
 import Section from 'components/Section/Section';
 import Modal from 'components/Modal/Modal';
+import Loader from 'components/Loader/Loader';
+import { animateScroll as scroll } from 'react-scroll';
 export default class App extends Component {
   state = {
     imageName: '',
@@ -54,7 +56,7 @@ export default class App extends Component {
           value: true,
         });
 
-        if (total === 0) {
+        if (data.total === 0) {
           this.setState({ value: false });
           toast.warning(
             `Sorry, there are no images matching your search query. Please try again.`
@@ -116,8 +118,9 @@ export default class App extends Component {
       this.fetchData(this.state.imageName, this.state.page);
     }
     if (prevState.page !== this.state.page) {
-      this.setState({ status: 'pending', value: false });
+      this.setState({ value: false });
       this.fetchData(this.state.imageName, this.state.page);
+      scroll.scrollToBottom();
     }
   }
 
@@ -126,32 +129,43 @@ export default class App extends Component {
       this.state;
     const { onGalleryListClick, switchModal, showNextImage, showPrevImage } =
       this;
-
-    return (
-      <div>
-        <Container>
-          <Searchbar onSubmit={this.handleSearchFormSubmit} />
-        </Container>
-        <Section nameForClass={'sectionList'}>
-          <ImageGallery
-            image={image}
-            error={error}
-            status={status}
-            onClick={onGalleryListClick}
-          />
-          {value && <Button handleIncrement={this.handleIncrement} />}
-        </Section>
-        {isModalOpen && (
-          <Modal
-            image={image}
-            photoIndex={modalImageIndex}
-            onClose={switchModal}
-            nextImage={showNextImage}
-            prevImage={showPrevImage}
-          />
-        )}
-        <ToastContainer />
-      </div>
-    );
+    if (status === 'idle') {
+      return (
+        <div>
+          <Container>
+            <Searchbar onSubmit={this.handleSearchFormSubmit} />
+          </Container>
+        </div>
+      );
+    }
+    if (status === 'pending') {
+      return <Loader />;
+    }
+    if (status === 'rejected') {
+      return error.message;
+    }
+    if (status === 'resolved') {
+      return (
+        <div>
+          <Container>
+            <Searchbar onSubmit={this.handleSearchFormSubmit} />
+          </Container>
+          <Section nameForClass={'sectionList'}>
+            <ImageGallery image={image} onClick={onGalleryListClick} />
+            {value && <Button handleIncrement={this.handleIncrement} />}
+          </Section>
+          {isModalOpen && (
+            <Modal
+              image={image}
+              photoIndex={modalImageIndex}
+              onClose={switchModal}
+              nextImage={showNextImage}
+              prevImage={showPrevImage}
+            />
+          )}
+          <ToastContainer />
+        </div>
+      );
+    }
   }
 }
