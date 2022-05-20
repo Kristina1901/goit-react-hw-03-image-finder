@@ -8,7 +8,7 @@ export default class Searchbar extends Component {
     imageName: '',
   };
   handleNameChange = event => {
-    this.setState({ imageName: event.currentTarget.value.toLowerCase() });
+    this.setState({ imageName: event.target.value.toLowerCase() });
   };
   handleSubmit = event => {
     event.preventDefault();
@@ -18,7 +18,6 @@ export default class Searchbar extends Component {
     }
 
     this.props.onSubmit(this.state.imageName);
-    // this.setState({ imageName: '' });
   };
 
   render() {
@@ -38,11 +37,7 @@ export default class Searchbar extends Component {
             autoComplete="off"
             autoFocus
             value={this.state.imageName}
-            placeholder={
-              this.state.imageName === ''
-                ? 'Search images and photos'
-                : this.state.imageName
-            }
+            placeholder="Search images and photos"
             onChange={this.handleNameChange}
           />
         </form>
